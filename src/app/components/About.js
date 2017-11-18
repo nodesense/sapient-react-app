@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 
 import Like from "./Like";
 
+import store from "../store";
+import {incrementAction} from "../actions";
+
 export default class About extends Component {
     constructor(props) {
         super(props);
@@ -23,8 +26,8 @@ export default class About extends Component {
     
     addMember() {
         //Mutable
-        //this.state.members.push("Member " + Math.random());
-        //this.forceUpdate();
+        this.state.members.push("Member " + Math.random());
+        this.forceUpdate();
     }
 
     showHide() {
@@ -54,10 +57,22 @@ export default class About extends Component {
         
     }
 
-    increment(n) {
+    increment() {
+        
         this.setState({
-            aboutLikes:  n
+            aboutLikes:  this.state.aboutLikes + 1
         })
+
+        // let action = {
+        //     type: 'INCREMENT',
+        //     payload: {
+        //         value: 1
+        //     }
+        // }
+
+        let action = incrementAction(1);
+
+        store.dispatch(action);
     }
 
     render() {
